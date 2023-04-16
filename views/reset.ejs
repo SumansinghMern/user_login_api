@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Reset Password</title>
+    <body>
+    <main>
+        <h2>Welcome <%= name %></h2>
+        <form class="reset-form" action="/setPassowd" method="POST" enctype="application/json">
+            <div class="form-control">
+                <label for="title">Enter Your Passowd</label>
+                <input type="text" name="password" id="title">
+            </div>
+            <input type="hidden" value="<%= userId %>" name="userId">
+
+            <button class="btn" type="submit">Set Password</button>
+        </form>
+    </main>
+
+
+</body>
+
+</html>

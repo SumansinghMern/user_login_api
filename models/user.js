@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const Role = require('./roleSchema');
+// const Schema = mongoose.Schema;
+const {Schema,Types,model} = mongoose;
+const { ObjectId } = Types
+
 
 const userSchema = new Schema({
     email:{
@@ -15,11 +19,15 @@ const userSchema = new Schema({
         required:true
     },
     status:{
-        type:String,
-        default:"I am new User!"
+        type:Boolean,
+        default: true
+    },
+    role: {
+        type: ObjectId,
+        ref:Role
     }
 },{
     timestamps:true
 })
 
-module.exports = mongoose.model('User',userSchema);     
+module.exports = model('User',userSchema);     
