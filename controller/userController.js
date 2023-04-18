@@ -1,4 +1,4 @@
-const { createUser, findUser, findAllUsers } = require("../modules/userModule");
+const { createUser, findUser, findAllUsers ,deletUser} = require("../modules/userModule");
 const { createHash } = require("../utils/utils");
 
 const { sendSingleMail, myBase } = require("../utils/utils");
@@ -85,3 +85,29 @@ module.exports.getAllUser = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.deleteUser = async (req, res, next) => {
+  try {
+    let {userId, email} = req.body;
+
+    if(!email){
+      let err = new Error("Email is Required!");
+
+      return next(err)
+    }
+
+    let [error,deletedUser] = await deletUser({email: email});
+    if(error){
+      return next(error)
+    }
+
+    res.status(200).json({
+      message: "USer is Deleted",
+      data: deletedUser,
+    });
+
+  } catch (error) {
+    console.log("🚀 ~ file: userController.js:93 ~ module.exports.deleteUser ~ error:", error)
+    next(error)
+  }
+}

@@ -12,4 +12,6 @@ route.post("/createUser", userController.createUser);
 
 route.get("/getAllUsers", userController.getAllUser);
 
+route.delete("/deleteUser", userController.deleteUser)
+
 module.exports = route;

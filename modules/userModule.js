@@ -47,3 +47,13 @@ module.exports.findAndUpdateUser = (query, data) =>
         resolve([error, {}]);
       });
   });
+
+module.exports.deletUser = (query) => new Promise((resolve, reject) => {
+  User.findOneAndDelete(query)
+    .then((doc) => {
+      resolve([false, doc])
+    })
+    .catch((error) => {
+      resolve([error, {}])
+    })
+})
