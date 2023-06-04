@@ -53,6 +53,7 @@ exports.login = async (req, res, next) => {
     }
 
     let isEqual = await compare(password, loadedUser.password);
+    console.log("🚀 ~ file: auth.js:56 ~ exports.login= ~ isEqual:", isEqual);
 
     if (!isEqual) {
       const error = new Error("Wrong Password!");

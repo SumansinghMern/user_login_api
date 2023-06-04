@@ -1,0 +1,380 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Admin",
+        "version": "1.0.0",
+        "title": "Admin dashbord",
+        "contact": {
+            "email": "sumansingh.dev7870@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "schemes": [
+        "http","https"
+    ],
+    "basePath": "/",
+    "paths": {
+        "/auth/login":{
+            "post":{
+                "summary":"Login User",
+                "description":"Login User By Email and password \n Default Email -: suman@active.agency password -: Sonu123# (For admin user) \n Default Email-: sumankumar.dev7870@gmail.com password-: Sonu123# (For User)",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters":[
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Email and password is required for login",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "success": {
+                        "description": "Successful Response",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "failed": {
+                        "description": "Failed  Response -> Here Success value will be: 'false' with Status as 200",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/books": {
+            "get": {
+                "summary": "Get All Book",
+                "description": "Optinaly you can pass search keyword in query parameter and skip and limit also.",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "JWT Token",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "skip",
+                        "description": " Enter seller ID here",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "search",
+                        "description": "",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "success": {
+                        "description": "Successful Response",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "failed": {
+                        "description": "Failed  Response -> Here Success value will be: 'false' with Status as 200",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Add Book",
+                "description": "Authentication token is required for this API",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Use Admin User JWT for this route",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Admin can add Book Only, and admin will be auther of the Book.",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "title": {
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "type": "string"
+                                },
+                                "publication": {
+                                    "type":"integer"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "success": {
+                        "description": "Successful Response",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "failed": {
+                        "description": "Failed  Response -> Here Success value will be: 'false' with Status as 200",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/book/{id}":{
+            "get": {
+                "summary": "Get Book by id",
+                "description": "API to get a single Book Details",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                     {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "JWT Token",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Book _id",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "success": {
+                        "description": "Successful Response",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "failed": {
+                        "description": "Failed  Response -> Here Success value will be: 'false' with Status as 200",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete Book by id",
+                "description": "API to Delete Book",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                     {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Admin JWT Token",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Book _id",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "success": {
+                        "description": "Successful Response",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "failed": {
+                        "description": "Failed  Response -> Here Success value will be: 'false' with Status as 200",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update Book by id",
+                "description": "API to Update Book",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                     {
+                        "in": "header",
+                        "name": "authorization",
+                        "description": "Admin JWT Token",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Book _id",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Pass anyone title, description, publication to update the field",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "success": {
+                        "description": "Successful Response",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "failed": {
+                        "description": "Failed  Response -> Here Success value will be: 'false' with Status as 200",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        }
+        
+    },
+    "definitions": {
+        "Book": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "publication": {
+                    "type": "integer"
+                },
+                "author": {
+                    "type":"object"
+                }
+            }
+        },
+        "InvalidResponse": {
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

@@ -4,6 +4,7 @@ const router = express.Router();
 const adminRoute = require("./adminRoutes");
 const superUserRoute = require("./superUserRoutes");
 const usersRoute = require("./usersRoutes")
+const bookRoute = require('./booksRoutes')
 
 /**
  * Admin Route

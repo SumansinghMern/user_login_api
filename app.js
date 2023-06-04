@@ -10,9 +10,14 @@ var cors = require("cors");
 const MONGODB_URI =
   "mongodb+srv://sonu:t80rQQFSpbZeUg7b@cluster0.pizod.mongodb.net/adminbord?retryWrites=true&w=majority";
 
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocs = require("./swagger_doc.json")
+
 const router = require("./routes");
 const authRoutes = require("./routes/auth");
 const genralRoutes = require("./routes/genralRoutes");
+
+const booksRoutes = require("./routes/booksRoutes");
 
 const app = express();
 
@@ -65,10 +70,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res, next) => {
-  console.log("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
-  next();
-});
 
 app.get("/", (req, res) => {
   res.send("Welcome To User API Server");
@@ -77,6 +78,20 @@ app.get("/", (req, res) => {
 app.use(router);
 app.use("/auth", authRoutes);
 app.use(genralRoutes);
+app.use(booksRoutes);
+
+let options = {};
+
+app.use(
+  "/api-docs",
+  function (req, res, next) {
+    swaggerDocs.host = req.get("host");
+    req.swaggerDoc = swaggerDocs;
+    next();
+  },
+  swaggerUi.serveFiles(swaggerDocs, options),
+  swaggerUi.setup()
+);
 
 app.use((error, req, res, next) => {
   console.log(error, "Error From eroor Handler!");
